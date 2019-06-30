@@ -1,21 +1,26 @@
 #!/bin/bash
 set -e
 
-SERVER_NAME=$1
+ROOT_DIR=$1
+SERVER_NAME=$2
+APP_ID=$3
+STEAMCMD=~/Steam/steamcmd.sh
 
-while false
+echo "Running Server with parameters: $ROOT_DIR, $SERVER_NAME, $APP_ID"
+
+while true
 do
-	cd ~/$SERVER_NAME
-	~/Steam/steamcmd.sh \
+	cd $ROOT_DIR/$SERVER_NAME
+	$STEAMCMD \
 		+login anonymous \
-		+force_install_dir ~/$SERVER_NAME/Barotrauma \
-		+app_update 1026340 validate \
+		+force_install_dir $ROOT_DIR/$SERVER_NAME/Barotrauma \
+		+app_update $APP_ID validate \
 		+quit
-	rm -f ~/$SERVER_NAME/Barotrauma/serversettings.xml
-	cp ~/$SERVER_NAME/serversettings.xml ~/$SERVER_NAME/Barotrauma
-	cd ~/$SERVER_NAME/Barotrauma
+	rm -f $ROOT_DIR/$SERVER_NAME/Barotrauma/serversettings.xml
+	cp $ROOT_DIR/${SERVER_NAME}_serversettings.xml $ROOT_DIR/$SERVER_NAME/Barotrauma/serversettings.xml
+	cd $ROOT_DIR/$SERVER_NAME/Barotrauma
 	./DedicatedServer
-	cd ~/$SERVER_NAME
+	cd $ROOT_DIR/$SERVER_NAME
 	echo "Press CTRL+C to stop..."
 	sleep 5
 done
