@@ -49,4 +49,4 @@
   BotSpawnMode="Fill"
   AllowedRandomMissionTypes="Random,Salvage,Monster,Cargo,Combat"
   AllowedClientNameChars="32-33,38-46,48-57,65-90,91-91,93-93,95-122,192-255,384-591,1024-1279"
-  ServerMessage="Welcome to the Depths! This server automatically restarts on crashes. Teamwork is the key. Let's drown together!" />
+  ServerMessage="Welcome to the Depths! This server automatically restarts on crashes. 5am CET update and restart. Teamwork is the key. Let's drown together!" />
