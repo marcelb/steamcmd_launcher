@@ -2,16 +2,27 @@
 set -e
 
 SERVER_LIST=("Baro1" "Baro2")
+ROOT_DIR=~/BarotraumaServer
+APP_ID=1026340
 
-function contains() {
-    local n=$#
-    local value=${!n}
-    for ((i=1;i < $#;i++)) {
-        if [ "${!i}" == "${value}" ]; then
-            return 0
-        fi
-    }
-    return 1
+function contains()
+{
+	local n=$#
+	local value=${!n}
+	for ((i=1;i < $#;i++)) {
+		if [ "${!i}" == "${value}" ]; then
+			return 0
+		fi
+	}
+	return 1
+}
+
+create_all_server_dirs()
+{
+	for i in "${SERVER_LIST[@]}"
+	do
+		mkdir -p $ROOT_DIR/$i
+	done
 }
 
 check_server_name()
@@ -48,26 +59,44 @@ update_and_run()
 
 # PROGRAM START
 
+PINK='\033[0;35m'
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+echo -e "${PINK}Welcome to SteamCMD Runner 0.1${NC}"
 COMMAND=$1
 SERVER_NAME=$2
+cd $ROOT_DIR
+echo -e "${GREEN}Running in $( pwd ).${NC}"
+echo -e "${GREEN}Making sure all server directories exist.${NC}"
+create_all_server_dirs
 
 case "$COMMAND" in
 	start)
-		echo "Starting..."
+		echo "Starting."
+		check_server_name
+		screen -S $SERVER_NAME -d -m ./baroserver_launch.sh $SERVER_NAME $APP_ID
             	;;
 	stop)
-		echo "Stopping..."
+		echo "Stopping."
+		check_server_name
+		screen -S $SERVER_NAME -X quit
 		;;
 	status)
-		echo "Status..."
+		echo "Status:"
+		screen -list
 		;;
 	attach)
-		echo "Attaching..."
+		echo "Attaching."
+		check_server_name
+		screen -r $SERVER_NAME
 		;;
 	*)
-		echo $"Usage: $0 {start|stop|status|attach} [ServerName]"
+		echo ""
+		echo -e $"${RED}Usage: $0 {start|stop|status|attach} [ServerName]${NC}"
 		exit 1
-esac
+esac || true
 
-echo "$COMMAND"
+echo -e "${GREEN}Done.${NC}"
 
