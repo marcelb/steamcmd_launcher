@@ -10,3 +10,7 @@ sleep 240
 sleep 5
 ~/BarotraumaServer/baroserver.sh start Baro2
 sleep 240
+~/BarotraumaServer/baroserver.sh stop BaroPrivate
+sleep 5
+~/BarotraumaServer/baroserver.sh start BaroPrivate
+sleep 5

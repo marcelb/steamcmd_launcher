@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-SERVER_LIST=("Baro1" "Baro2")
+SERVER_LIST=("Baro1" "Baro2" "BaroPrivate")
 ROOT_DIR=~/BarotraumaServer
 APP_ID=1026340
 
