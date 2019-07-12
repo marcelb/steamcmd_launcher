@@ -45,6 +45,7 @@ check_server_name()
 echo -e "${PINK}Welcome to SteamCMD Runner 0.1${NC}"
 COMMAND=$1
 SERVER_NAME=$2
+SWITCH=$3
 cd $ROOT_DIR
 echo -e "${GREEN}Running in $( pwd ).${NC}"
 echo -e "${GREEN}Making sure all server directories exist.${NC}"
@@ -54,8 +55,11 @@ case "$COMMAND" in
 	start)
 		echo -e "${GREEN}Starting Server...${NC}"
 		check_server_name
-		# $ROOT_DIR/launcher.sh $ROOT_DIR $SERVER_NAME $APP_ID
-		screen -S $SERVER_NAME -d -m $ROOT_DIR/launcher.sh $ROOT_DIR $SERVER_NAME $APP_ID
+		if [ $SWITCH == "-noscreen" ]; then
+			$ROOT_DIR/launcher.sh $ROOT_DIR $SERVER_NAME $APP_ID
+		else
+			screen -S $SERVER_NAME -d -m $ROOT_DIR/launcher.sh $ROOT_DIR $SERVER_NAME $APP_ID
+		fi
 		sleep 1
             	;;
 	stop)

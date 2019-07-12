@@ -22,7 +22,7 @@ do
 	rm -f $ROOT_DIR/$SERVER_NAME/Barotrauma/serversettings.xml
 	cp $ROOT_DIR/${SERVER_NAME}_serversettings.xml $ROOT_DIR/$SERVER_NAME/Barotrauma/serversettings.xml
 	cd $ROOT_DIR/$SERVER_NAME/Barotrauma
-	./DedicatedServer
+	./Launch_DedicatedServer
 	cd $ROOT_DIR/$SERVER_NAME
 	echo "Press CTRL+C to stop..."
 	sleep 5

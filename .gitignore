@@ -1,2 +1,4 @@
 /Baro1/
 /Baro2/
+/BaroPrivate/
+*.log
