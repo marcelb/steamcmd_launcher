@@ -55,7 +55,7 @@ case "$COMMAND" in
 	start)
 		echo -e "${GREEN}Starting Server...${NC}"
 		check_server_name
-		if [ $SWITCH == "-noscreen" ]; then
+		if [ "-noscreen" == "$SWITCH" ]; then
 			$ROOT_DIR/launcher.sh $ROOT_DIR $SERVER_NAME $APP_ID
 		else
 			screen -S $SERVER_NAME -d -m $ROOT_DIR/launcher.sh $ROOT_DIR $SERVER_NAME $APP_ID
