@@ -21,9 +21,11 @@ do
 		+quit
 	rm -f $ROOT_DIR/$SERVER_NAME/Barotrauma/serversettings.xml
 	cp $ROOT_DIR/${SERVER_NAME}_serversettings.xml $ROOT_DIR/$SERVER_NAME/Barotrauma/serversettings.xml
-	cd $ROOT_DIR/$SERVER_NAME/Barotrauma
-	mono ./Server.exe # ./DedicatedServer.exe
-	cd $ROOT_DIR/$SERVER_NAME
+	$STEAMCMD \
+                +login anonymous \
+                +force_install_dir $ROOT_DIR/$SERVER_NAME/Barotrauma \
+                +app_run $APP_ID \
+                +quit
 	echo "Press CTRL+C to stop..."
 	sleep 5
 done
