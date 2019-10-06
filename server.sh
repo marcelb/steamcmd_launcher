@@ -4,11 +4,11 @@ set -e
 COMMAND=$1
 SERVER_NAME=$2
 SWITCH=$3
-SERVER_LIST=("Private" "Stream")
+SERVER_LIST=("servertest" "Stream")
 ROOT_DIR=~/Zomboid/ZomboidLauncher
 APP_ID=380870
 PREPARE_CMD=""
-RUN_SERVER_CMD=./start-server.sh -servername $SERVER_NAME
+RUN_SERVER_CMD="./start-server.sh -servername $SERVER_NAME"
 
 PINK='\033[0;35m'
 GREEN='\033[0;32m'
@@ -57,10 +57,10 @@ case "$COMMAND" in
 	start)
 		echo -e "${GREEN}Starting Server...${NC}"
 		check_server_name
-		if [ "-noscreen" == "$SWITCH" ]; then
-			$ROOT_DIR/launcher.sh $ROOT_DIR $SERVER_NAME $APP_ID $RUN_SERVER_CMD $PREPARE_CMD
+		if [ "-screen" == "$SWITCH" ]; then
+			screen -S $SERVER_NAME -d -m $ROOT_DIR/launcher.sh $ROOT_DIR $SERVER_NAME $APP_ID "$RUN_SERVER_CMD" "$PREPARE_CMD"
 		else
-			screen -S $SERVER_NAME -d -m $ROOT_DIR/launcher.sh $ROOT_DIR $SERVER_NAME $APP_ID $RUN_SERVER_CMD $PREPARE_CMD
+			$ROOT_DIR/launcher.sh $ROOT_DIR $SERVER_NAME $APP_ID "$RUN_SERVER_CMD" "$PREPARE_CMD"
 		fi
 		sleep 1
             	;;
@@ -81,7 +81,7 @@ case "$COMMAND" in
 		;;
 	*)
 		echo ""
-		echo -e $"${RED}Usage: $0 {start|stop|status|attach} [ServerName]${NC}"
+		echo -e $"${RED}Usage: $0 {start|stop|status|attach} [ServerName] {-screen}${NC}"
 		exit 1
 esac || true
 
