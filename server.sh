@@ -1,9 +1,14 @@
 #!/bin/bash
 set -e
 
-SERVER_LIST=("Baro1" "Baro2" "BaroPrivate")
-ROOT_DIR=~/BarotraumaServer
-APP_ID=1026340
+COMMAND=$1
+SERVER_NAME=$2
+SWITCH=$3
+SERVER_LIST=("Private" "Stream")
+ROOT_DIR=~/Zomboid/ZomboidLauncher
+APP_ID=380870
+PREPARE_CMD=""
+RUN_SERVER_CMD=./start-server.sh -servername $SERVER_NAME
 
 PINK='\033[0;35m'
 GREEN='\033[0;32m'
@@ -43,9 +48,6 @@ check_server_name()
 # PROGRAM START
 
 echo -e "${PINK}Welcome to SteamCMD Runner 0.1${NC}"
-COMMAND=$1
-SERVER_NAME=$2
-SWITCH=$3
 cd $ROOT_DIR
 echo -e "${GREEN}Running in $( pwd ).${NC}"
 echo -e "${GREEN}Making sure all server directories exist.${NC}"
@@ -56,9 +58,9 @@ case "$COMMAND" in
 		echo -e "${GREEN}Starting Server...${NC}"
 		check_server_name
 		if [ "-noscreen" == "$SWITCH" ]; then
-			$ROOT_DIR/launcher.sh $ROOT_DIR $SERVER_NAME $APP_ID
+			$ROOT_DIR/launcher.sh $ROOT_DIR $SERVER_NAME $APP_ID $RUN_SERVER_CMD $PREPARE_CMD
 		else
-			screen -S $SERVER_NAME -d -m $ROOT_DIR/launcher.sh $ROOT_DIR $SERVER_NAME $APP_ID
+			screen -S $SERVER_NAME -d -m $ROOT_DIR/launcher.sh $ROOT_DIR $SERVER_NAME $APP_ID $RUN_SERVER_CMD $PREPARE_CMD
 		fi
 		sleep 1
             	;;
