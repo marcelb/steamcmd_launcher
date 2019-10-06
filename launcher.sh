@@ -28,5 +28,5 @@ do
 	$RUN_SERVER_CMD # mono ./Server.exe # ./DedicatedServer.exe
 	cd $ROOT_DIR/$SERVER_NAME
 	echo "Press CTRL+C to stop..."
-	sleep 5
+	sleep 15
 done
