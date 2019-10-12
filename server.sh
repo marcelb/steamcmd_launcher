@@ -77,6 +77,7 @@ case "$COMMAND" in
 	attach)
 		echo -e "${GREEN}Attaching Console to Server...${NC}"
 		check_server_name
+		echo -e "${RED}Detach again by pressing Ctrl-A and D.${NC}"
 		screen -r $SERVER_NAME
 		;;
 	*)
